@@ -19,7 +19,7 @@
   2. Change the onmouseover attribute to onclick and test it
   3. Remove the onclick attribute and go on to step 2
   -->
-  <p>How to play</p>
+  <p onclick = "instructions();">How to play</p>
   <div class="drumset">
     <img class='drumset-part' id='hihat' src='images/hihat.png'>
     <img class='drumset-part' id='snare' src='images/snare.png'>
@@ -48,10 +48,8 @@
     2. Use the querySelector() method to select the p tag and assign it a variable.
     3. Set the ptag object's onclick event handler property to an anon function that shows an alert with the instructions. 
     */
-
-   
-
-    function instructions() {
+    const ptg = document.querySelector('p');
+    ptg.onclick = function instructions() {
       alert("Hover over a drum picture to play its sound. Type one of the keys on your keyboard to add guitar sounds");
     }
 
@@ -60,8 +58,10 @@
     1. Use the querySelectorAll() method to select the .drumset-part img tags and assign them a variable.
     2. Use the forEach() method to loop through each drumset part and add an event listener for 'mouseover', have it call the playDrums function 
     */
-    
-
+    const drums = document.querySelectorAll('.drumset-part')
+    drums.forEach (function (drum) {
+      drum.addEventListener('mouseover',playDrums);
+    })
 
 
     /* Exercise 4
@@ -73,8 +73,13 @@
     6. Play the audio using play() method
     */
 
-    
-
+    function playDrums (event) {
+      let drumId = event.currentTarget.id;
+      let audio = document.getElementById(drumId+'-audio');
+      console.log(audio);
+      audio.currentTime = 0;
+      audio.play();
+    }
 
 
     /* ============================= Events lesson Part 2: Making the keyboard guitar sounds =========================== */
